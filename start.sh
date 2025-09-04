@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export LC_ALL=C.utf8
+export LC_ALL=C.UTF-8
 
 # Postfix Admin Utility v1.0
 # Interactive administration menu for Postfix and SpamAssassin
@@ -67,7 +67,7 @@ get_ids_by_recipient() {
 }
 
 clean_queue_pattern() {
-  local pattern="$1" desc="$2"
+  local pattern="$1"
   local ids=$(get_ids_by_recipient "$pattern")
   for id in $ids; do
     local sender=$(postcat -q "$id" 2>/dev/null | awk '/^sender:/ {print $2}')
@@ -78,8 +78,8 @@ clean_queue_pattern() {
   [ -z "$ids" ] && echo "Нет подходящих сообщений."
 }
 
-clean_ru() { clean_queue_pattern '\\.ru>' '.ru recipients'; }
-clean_azart() { clean_queue_pattern '@azart\.in>' '@azart.in recipients'; }
+clean_ru() { clean_queue_pattern '\\.ru>'; }
+clean_azart() { clean_queue_pattern '@azart\.in>'; }
 clean_gmail_overquota() {
   local ids=$(postqueue -p | grep -B1 'gmail.com' | grep -B1 'quota' | awk '/^[A-F0-9]{10,}/ {print $1}')
   for id in $ids; do run_cmd "postsuper -d $id"; done
