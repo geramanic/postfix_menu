@@ -6,7 +6,7 @@
 
 ```bash
 cd /opt
-git clone https://github.com/geramanic/postfix_menu/mail_admin.git
+git clone https://github.com/geramanic/postfix_menu.git
 cd mail_admin
 chmod +x start.sh
 ```
